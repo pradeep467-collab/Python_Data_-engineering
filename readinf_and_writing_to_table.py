@@ -45,4 +45,35 @@ query_output=pd.read_sql(query_statement,conn)
 print(query_statement)
 print(query_output)
 
+#Practise code
+table_name2='Departments'
+table_attrib=['DEPT_ID','DEP_NAME','MANAGER_ID','LOC_ID']
+file_path2='/home/project/Departments.csv'
+
+read_data=pd.read_csv(file_path2,names=table_attrib)
+
+read_data.to_sql(table_name2,conn,if_exists='replace',index=False)
+print("Table created")
+
+sql_state=f"select * from {table_name2}"
+sql_output=pd.read_sql(sql_state,conn)
+print(sql_state)
+print(sql_output)
+
+data_dict2={'DEPT_ID':[9],
+            'DEP_NAME':['Quality Assurance'],
+            'MANAGER_ID':[30010],
+            'LOC_ID':['L010']
+            }
+data_append=pd.DataFrame(data_dict2)
+data_append.to_sql(table_name2,conn,if_exists='append',index=False)
+print('Appended to department table sucesfully')
+
+sql_state=f"select * from {table_name2}"
+sql_output=pd.read_sql(sql_state,conn)
+print(sql_state)
+print(sql_output)
+
+
+
 conn.close()
